@@ -8,9 +8,13 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
+            <!-- Picture -->
+            <div>
+                <x-picture-input />
+            </div>
 
             <!-- Name -->
-            <div>
+            <div class="mt-4">
                 <x-input-label for="name" :value="__('Name')" />
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -21,6 +25,13 @@
                 <x-input-label for="surname" :value="__('Surname')" />
                 <x-text-input id="surname" class="block mt-1 w-full" type="text" name="surname" :value="old('surname')" required autofocus />
                 <x-input-error :messages="$errors->get('surname')" class="mt-2" />
+            </div>
+
+            <!-- Nick -->
+            <div class="mt-4">
+                <x-input-label for="nick" :value="__('Nick')" />
+                <x-text-input id="nick" class="block mt-1 w-full" type="text" name="nick" :value="old('nick')" required autofocus />
+                <x-input-error :messages="$errors->get('nick')" class="mt-2" />
             </div>
 
             <!-- Email Address -->
