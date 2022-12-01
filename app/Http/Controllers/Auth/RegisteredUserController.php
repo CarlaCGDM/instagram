@@ -39,7 +39,13 @@ class RegisteredUserController extends Controller
             'nick' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'avatar' => ['file','mimes:jpg,png,gif','max:3072']
         ]);
+
+        $path=null;
+        if($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->storePublicly('avatars');
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -47,13 +53,11 @@ class RegisteredUserController extends Controller
             'nick' => $request->nick,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => null
+            'avatar' => $path,
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

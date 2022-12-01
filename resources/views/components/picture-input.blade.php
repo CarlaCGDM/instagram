@@ -1,11 +1,11 @@
-<div class="flex flex-col items-center justify-center" x-data="picturePreview()">
+<div class="flex flex-col items-center justify-center" x-data="avatarPreview()">
   <div class="rounded-md bg-gray-200 mt-2 mb-2">
     <img id="preview" src="" alt=""
          class="w-24 h-24 rounded-md object-cover">
   </div>
   <div>
    <x-primary-button
-      @click="document.getElementById('picture').click()"
+      @click="document.getElementById('avatar').click()"
      class="relative">
       <div class="flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -21,13 +21,13 @@
         Subir imagen
       </div>
       <input @change="showPreview(event)"
-             type="file" name="picture"
-             id="picture"
+             type="file" name="avatar"
+             id="avatar"
              class=" absolute inset-0 -z-10 opacity-0">
    </x-primary-button>
 </div>
   <script>
-    function picturePreview() {
+    function avatarPreview() {
       return {
         showPreview: (event) => {
           if (event.target.files.length > 0)
