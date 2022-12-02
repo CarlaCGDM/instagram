@@ -62,4 +62,14 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function randomAvatar() {
+         //imagen aleatoria
+         $dir_path = public_path('sample_avatars');
+         $files = scandir($dir_path);
+         $count = count($files);
+         $index = rand(2, ($count-1));
+         $filename = $files[$index];
+         return "sample_avatars/".$filename;
+    }
+
 }

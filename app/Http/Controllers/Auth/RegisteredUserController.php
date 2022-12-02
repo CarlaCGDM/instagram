@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
@@ -45,6 +46,17 @@ class RegisteredUserController extends Controller
         $path=null;
         if($request->hasFile('avatar')) {
             $path = $request->file('avatar')->storePublicly('avatars');
+        } else {
+            
+            //imagen aleatoria
+            $dir_path = public_path('sample_avatars');
+            $files = scandir($dir_path);
+            $count = count($files);
+            $index = rand(2, ($count-1));
+            $filename = $files[$index];
+            $path = "sample_avatars/".$filename;
+
+            //imagen del hidden input
         }
 
         $user = User::create([

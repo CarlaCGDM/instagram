@@ -10,7 +10,7 @@
             @csrf
             <!-- Picture -->
             <div>
-                <x-picture-input />
+                <x-avatar-input />
             </div>
 
             <!-- Name -->

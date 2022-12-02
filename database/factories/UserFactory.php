@@ -17,6 +17,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        //imagen aleatoria
+        $dir_path = public_path('sample_avatars');
+        $files = scandir($dir_path);
+        $count = count($files);
+        $index = rand(2, ($count-1));
+        $filename = $files[$index];
+
         return [
             'name' => $this->faker->firstName(),
             'surname' => $this->faker->lastName(),
@@ -24,6 +31,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'avatar' => "sample_avatars/".$filename,
             'remember_token' => Str::random(10),
         ];
     }
