@@ -29,3 +29,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::resource("images", \App\Http\Controllers\ImageController::class)
+->middleware("auth");

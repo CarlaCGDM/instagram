@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+
+
+
 
 class Image extends Model
 {
@@ -48,6 +54,11 @@ class Image extends Model
     //La relación entre Imagen y Like es similar:
     public function likes(): HasMany {
         return $this->hasMany(Like::class);
+    }
+
+    //La relación entre Imagen y User:
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
     //---------------------------------------------------------------------------------------------------------------FORMATO DE FECHAS
