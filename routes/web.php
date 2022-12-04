@@ -18,9 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,5 +32,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+//Rutas de los controladores
+
 Route::resource("images", \App\Http\Controllers\ImageController::class)
+->middleware("auth");
+
+Route::get('user-index', [\App\Http\Controllers\ImageController::class, 'user_index'])->name('user-index');
+
+Route::resource("likes", \App\Http\Controllers\LikeController::class)
 ->middleware("auth");

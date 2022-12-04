@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Like extends Model
 {
@@ -35,12 +36,12 @@ class Like extends Model
     //Definimos la relación entre Like e Imagen:
     //Un like se ha dejado en una única imagen, pero una imagen puede tener muchos likes (relación de muchos a uno).
     //Accediendo a la función images, desde un objeto de tipo Like podremos saber en que imagen se ha dejado ese like.
-    public function images(): BelongsTo {
+    public function image(): BelongsTo {
         return $this->belongsTo(Image::class);
     }
     
     //La relación entre Like y Usuario es similar:
-    public function users(): BelongsTo {
+    public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
 

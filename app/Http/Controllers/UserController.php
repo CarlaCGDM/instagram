@@ -2,33 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 
-class ImageController extends Controller
+class UserController extends Controller
 {
     /**
-    * Display a listing of all the images.
-    *
-    * @return Renderable
-    */
-    public function index(Request $request = null): Renderable
+     * Mostrar todos los post que ha publicado ese usuario en particular
+     *
+     * @return \Illuminate\Http\Renderable
+     */
+    public function index($user_id): Renderable
     {
-        $images= Image::with("user")->withCount("likes")->latest()->paginate();
-        return view("images.index", compact("images"));
-    }
-
-
-    /**
-    * Display a listing of all the images.
-    *
-    * @return Renderable
-    */
-    public function user_index(Request $request): Renderable
-    {
-        $images= Image::with("user")->withCount("likes")->where("user_id", $request->user_id)->latest()->paginate();
-        return view("images.user-index", compact("images"));
+    $user_images = Image::with("user")->withCount("likes")->where('user_id', $user_id)->latest()->paginate();
+    return view("images.index", compact("images"));
     }
 
     /**
@@ -55,10 +43,10 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Image  $image
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Image $image)
+    public function show(User $user)
     {
         //
     }
@@ -66,10 +54,10 @@ class ImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Image  $image
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Image $image)
+    public function edit(User $user)
     {
         //
     }
@@ -78,10 +66,10 @@ class ImageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Image  $image
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Image $image)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -89,10 +77,10 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Image  $image
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy(User $user)
     {
         //
     }
