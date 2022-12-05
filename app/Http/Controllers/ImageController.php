@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -27,8 +28,9 @@ class ImageController extends Controller
     */
     public function user_index(Request $request): Renderable
     {
-        $images= Image::with("user")->withCount("likes")->where("user_id", $request->user_id)->latest()->paginate();
-        return view("images.user-index", compact("images"));
+        $images = Image::with("user")->withCount("likes")->where("user_id", $request->user_id)->latest()->paginate();
+        $user = User::where("id", $request->user_id)->first();
+        return view("images.user-index", compact("user","images"));
     }
 
     /**

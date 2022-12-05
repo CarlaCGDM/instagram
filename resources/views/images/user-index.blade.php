@@ -2,8 +2,8 @@
     <div class="relative max-w-2x1 mx-auto my-3">
     <!--user profile header -->
         <x-user-profile-header 
-        avatar="{{ $images[0]->user->avatar }}"
-        nick="{{ $images[0]->user->nick }}" />
+        avatar="{{ $user->avatar }}"
+        nick="{{ $user->nick }}" />
     <!--user profile header end -->
 
     <!--instagram post grid -->
