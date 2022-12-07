@@ -45,8 +45,6 @@ class LikeController extends Controller
         } else {
             $like->delete();
         }
-
-        return redirect(url()->previous());
     }
 
     /**
@@ -92,6 +90,5 @@ class LikeController extends Controller
     public function destroy(Like $like)
     {
         $like->delete();
-        return redirect(url()->previous());
     }
 }

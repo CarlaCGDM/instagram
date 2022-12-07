@@ -41,3 +41,7 @@ Route::get('user-index', [\App\Http\Controllers\ImageController::class, 'user_in
 
 Route::resource("likes", \App\Http\Controllers\LikeController::class)
 ->middleware("auth");
+
+//rutas de ajax post y get
+
+Route::post('store', [\App\Http\Controllers\LikeController::class, 'store'])->name('like.store');
