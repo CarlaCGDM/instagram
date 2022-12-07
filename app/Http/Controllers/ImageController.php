@@ -18,6 +18,7 @@ class ImageController extends Controller
     {
         $images= Image::with("user")->withCount("likes")->latest()->paginate();
         return view("images.index", compact("images"));
+        //como incluyo la informacion de si el usuario autenticado le ha dado like a cada imagen del array??
     }
 
 

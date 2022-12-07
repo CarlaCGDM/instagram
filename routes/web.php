@@ -45,3 +45,4 @@ Route::resource("likes", \App\Http\Controllers\LikeController::class)
 //rutas de ajax post y get
 
 Route::post('store', [\App\Http\Controllers\LikeController::class, 'store'])->name('like.store');
+Route::post('destroy', [\App\Http\Controllers\LikeController::class, 'destroy'])->name('like.destroy');

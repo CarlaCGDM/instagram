@@ -18,7 +18,7 @@
                 created_at="{{ $image->created_at }}"
                 image_path="{{ $image->image_path }}"
                 description="{{ $image->description }}"
-                likes="{{ $image->likes_count }}" />
+                likes="{{ $image->likes_count }}"/>
             @endforeach
         </div>
         <!-- instagram post grid end-->
@@ -35,14 +35,16 @@
         }
     });
 
-    $(".submit-button").click(function(e) {
+    $(".like-button").click(function(e) {
 
         e.preventDefault();
 
         let user_id = $(this).data("user-id");
         let image_id = $(this).data("image-id");
-        let like_count = document.getElementById("like_count_" + image_id);
-        console.log(like_count);
+        let like_count = document.getElementById("like-count-" + image_id);
+        let unlike_button = document.getElementById("unlike-button-" + image_id);
+        let like_button = document.getElementById("like-button-" + image_id);
+        console.log(unlike_button);
 
         $.ajax({
             type: 'POST',
@@ -52,12 +54,41 @@
                 image_id: image_id,
             },
             success: function(data) {
-                console.log(image_id);
-                like_count.textContent = parseInt(like_count.textContent) + 1;
+                like_count.textContent = `${parseInt(like_count.textContent) + 1} likes`;
+                unlike_button.style.display = "inline-block";
+                like_button.style.display = "none";
+
             }
         });
 
     });
+
+    $(".unlike-button").click(function(e) {
+
+        e.preventDefault();
+
+        let user_id = $(this).data("user-id");
+        let image_id = $(this).data("image-id");
+        let like_count = document.getElementById("like-count-" + image_id);
+        let unlike_button = document.getElementById("unlike-button-" + image_id);
+        let like_button = document.getElementById("like-button-" + image_id);
+        console.log(like_count);
+
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('like.destroy') }}",
+            data: {
+                user_id: user_id,
+                image_id: image_id,
+            },
+            success: function(data) {
+                like_count.textContent = `${parseInt(like_count.textContent) - 1} likes`;
+                like_button.style.display = "inline-block";
+                unlike_button.style.display = "none";
+            }
+        });
+
+        });
     </script>
 
 </x-app-layout>

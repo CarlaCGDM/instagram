@@ -35,15 +35,21 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
+        Like::create([
+            'user_id' => $request->user_id,
+            'image_id' => $request->image_id,
+            'created_at' => now(),
+        ]);
+    }
+
+    //comprobar si el usuario ha dado ya me gusta a la publicacion para saber que boton mostrar
+
+    public function has_liked(Request $request) {
         $like = Like::where('user_id', $request->user_id)->where('image_id', $request->image_id)->first();
         if ($like === null) {
-            Like::create([
-                'user_id' => $request->user_id,
-                'image_id' => $request->image_id,
-                'created_at' => now(),
-            ]);
+            return false;
         } else {
-            $like->delete();
+            return true;
         }
     }
 
@@ -87,8 +93,9 @@ class LikeController extends Controller
      * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function destroy(Request $request)
     {
+        $like = Like::where('user_id', $request->user_id)->where('image_id', $request->image_id)->first();
         $like->delete();
     }
 }
