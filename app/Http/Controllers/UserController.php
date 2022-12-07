@@ -9,14 +9,15 @@ use Illuminate\Contracts\Support\Renderable;
 class UserController extends Controller
 {
     /**
-     * Mostrar todos los post que ha publicado ese usuario en particular
-     *
-     * @return \Illuminate\Http\Renderable
-     */
-    public function index($user_id): Renderable
+    * Display a listing of all the images.
+    *
+    * @return Renderable
+    */
+    public function index(Request $request = null): Renderable
     {
-    $user_images = Image::with("user")->withCount("likes")->where('user_id', $user_id)->latest()->paginate();
-    return view("images.index", compact("images"));
+        $users= User::latest()->paginate();
+        //tengo que ponerle un limite por pagina
+        return view("users.all-users", compact("users"));
     }
 
     /**

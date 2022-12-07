@@ -33,11 +33,7 @@
                 <!--formulario del like-->
 
                     <button
-                    @if(!$user_has_liked)
 
-                    style="display:none"
-
-                    @endif
                     id="like-button-{{ $image_id }}" 
                     class="like-button" 
                     data-user-id="{{ auth()->id() }}" 
@@ -50,11 +46,9 @@
                     </button>
 
                     <button 
-                    @if($user_has_liked)
 
-                    style="display:none"
+                    <?php echo "style='display:none;'"?>
 
-                    @endif
                     id="unlike-button-{{ $image_id }}" 
                     class="unlike-button" 
                     data-user-id="{{ auth()->id() }}"
@@ -65,6 +59,7 @@
                             </path>
                         </svg>
                     </button>
+
 
                 <!--formulario del like end-->
                 <!--formulario del comentario-->

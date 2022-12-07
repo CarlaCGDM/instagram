@@ -1,15 +1,9 @@
 <x-app-layout>
 
-    @if("a"==null)
-    <!--user profile header -->
-    <x-user-profile-header />
-    <!--user profile header end -->
-    @endif
-
     <!-- instagram post grid -->
     <div class="relative max-w-2x1 mx-auto my-3">
-        <div class="grid grid-cols-5 gap-0.5 mt-2">
-            @foreach($images as $image)
+        <div class="grid grid-cols-6 gap-0.5 mt-2">
+            @foreach($images as $image) <!-- $image = ($row,$has_liked) -->
             <x-instagram-post
                 user_id="{{ $image->user->id }}"
                 image_id="{{ $image->id }}"
@@ -18,7 +12,8 @@
                 created_at="{{ $image->created_at }}"
                 image_path="{{ $image->image_path }}"
                 description="{{ $image->description }}"
-                likes="{{ $image->likes_count }}"/>
+                likes="{{ $image->likes_count }}"
+                user_has_liked="{ app\Http\Controllers\LikeController::has_liked($image) }"/>
             @endforeach
         </div>
         <!-- instagram post grid end-->
@@ -29,6 +24,8 @@
     </div>
     
     <script type="text/javascript">
+
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -44,7 +41,6 @@
         let like_count = document.getElementById("like-count-" + image_id);
         let unlike_button = document.getElementById("unlike-button-" + image_id);
         let like_button = document.getElementById("like-button-" + image_id);
-        console.log(unlike_button);
 
         $.ajax({
             type: 'POST',
@@ -72,7 +68,6 @@
         let like_count = document.getElementById("like-count-" + image_id);
         let unlike_button = document.getElementById("unlike-button-" + image_id);
         let like_button = document.getElementById("like-button-" + image_id);
-        console.log(like_count);
 
         $.ajax({
             type: 'POST',

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\User;
+use App\Models\Like;
+use App\Http\Controllers\LikeController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -16,9 +18,11 @@ class ImageController extends Controller
     */
     public function index(Request $request = null): Renderable
     {
-        $images= Image::with("user")->withCount("likes")->latest()->paginate();
+        $images = Image::with("user")->withCount("likes")->latest()->paginate();
         return view("images.index", compact("images"));
-        //como incluyo la informacion de si el usuario autenticado le ha dado like a cada imagen del array??
+
+        //array = [i1, i2, i3, i4...]
+        //array = [(i1,true),(i2,false)]
     }
 
 
