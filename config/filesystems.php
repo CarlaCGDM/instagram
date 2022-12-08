@@ -72,6 +72,7 @@ return [
         public_path('sample_images') => storage_path('app/sample_images'),
         public_path('sample_avatars') => storage_path('app/sample_avatars'),
         public_path('avatars') => storage_path('app/avatars'),
+        public_path('user_images') => storage_path('app/user_images'),
         public_path('storage') => storage_path('app/public'),
     ],
 

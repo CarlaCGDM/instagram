@@ -8,11 +8,13 @@ use App\Models\Like;
 use App\Http\Controllers\LikeController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
+use App\Providers\RouteServiceProvider;
 
 class ImageController extends Controller
 {
     /**
-    * Display a listing of all the images.
+    * Muestra un listado de todas las imágenes subidas por todos los usuarios.
+    * No se ven los comentarios asociados a la imagen, pero sí la información referente al usuario que la ha subido.
     *
     * @return Renderable
     */
@@ -29,15 +31,22 @@ class ImageController extends Controller
 
 
     /**
-    * Display a listing of all the images.
+    * Muestra un listado de todas las imágenes subidas por un usuario en particular.
+    * No se ven los comentarios asociados a la imagen, pero sí la información referente al usuario que la ha subido.
     *
     * @return Renderable
     */
     public function user_index(Request $request): Renderable
     {
-        $images = Image::with("user")->withCount("likes")->where("user_id", $request->user_id)->latest()->paginate();
+        $images = Image::with("user")->withCount("likes")->where("user_id", $request->user_id)->addSelect(['liked_by_user' => Like::select('id')
+        ->where('user_id', auth()->id())
+        ->whereColumn('image_id', 'images.id')])->latest()->paginate();
         $user = User::where("id", $request->user_id)->first();
         return view("images.user-index", compact("user","images"));
+    }
+
+    public function expanded_instagram_post($image_id) {
+
     }
 
     /**
@@ -57,12 +66,20 @@ class ImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $path = $request->file('image')->storePublicly('user_images');
+        Image::create([
+            'user_id' => $request->user_id,
+            'image_path' => $path,
+            'description' => $request->description,
+            'created_at' => now(),
+        ]);
+
+        return redirect(RouteServiceProvider::HOME);
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un post del 
      *
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response

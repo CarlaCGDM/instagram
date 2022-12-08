@@ -36,7 +36,7 @@ class Image extends Model
     //----------------------------------------------------------------------------------------------------------------------PAGINACIÓN
 
     //Guardamos en una variable cuántas imágenes queremos mostrar por página
-    protected $perPage = 20;
+    protected $perPage = 40;
 
     //---------------------------------------------------------------------------------------------------------RELACIONES ENTRE TABLAS
 

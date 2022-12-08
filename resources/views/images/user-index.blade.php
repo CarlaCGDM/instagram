@@ -7,7 +7,7 @@
     <!--user profile header end -->
 
     <!--instagram post grid -->
-        <div class="grid grid-cols-6 gap-0.5 mt-2">
+        <div class="grid grid-cols-5 gap-0.5 mt-2">
             @foreach($images as $image)
             <x-instagram-post
                 image_id="{{ $image->id }}"
@@ -17,14 +17,12 @@
                 created_at="{{ $image->created_at }}"
                 image_path="{{ $image->image_path }}"
                 description="{{ $image->description }}"
-                likes="{{ $image->likes_count }}" />
+                likes="{{ $image->likes_count }}"
+                liked_by_user="{{$image->liked_by_user}}" />
             @endforeach
         </div>
     <!--instagram post grid end -->
 
-        <!-- bottom navigation -->
-        <x-bottom-navigation />
-        <!-- bottom navigation end -->
     </div>
 
     <script type="text/javascript">

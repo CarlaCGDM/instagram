@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        \App\Models\User::factory(10)->create();
-        \App\Models\Image::factory(10)->create();
+        \App\Models\User::factory(50)->create();
+        \App\Models\Image::factory(50)->create();
         \App\Models\Comment::factory(50)->create();
-        \App\Models\Like::factory(250)->create();
+        \App\Models\Like::factory(50)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
