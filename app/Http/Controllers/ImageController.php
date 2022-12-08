@@ -18,11 +18,13 @@ class ImageController extends Controller
     */
     public function index(Request $request = null): Renderable
     {
-        $images = Image::with("user")->withCount("likes")->latest()->paginate();
-        return view("images.index", compact("images"));
+        $images = Image::with("user")->withCount("likes")->addSelect(['liked_by_user' => Like::select('id')
+        ->where('user_id', auth()->id())
+        ->whereColumn('image_id', 'images.id')])->latest()->paginate();
 
-        //array = [i1, i2, i3, i4...]
-        //array = [(i1,true),(i2,false)]
+        //dd($images);
+
+        return view("images.index", compact("images"));
     }
 
 

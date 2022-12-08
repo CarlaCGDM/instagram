@@ -3,7 +3,7 @@
     <!-- instagram post grid -->
     <div class="relative max-w-2x1 mx-auto my-3">
         <div class="grid grid-cols-6 gap-0.5 mt-2">
-            @foreach($images as $image) <!-- $image = ($row,$has_liked) -->
+            @foreach($images as $image) 
             <x-instagram-post
                 user_id="{{ $image->user->id }}"
                 image_id="{{ $image->id }}"
@@ -13,7 +13,7 @@
                 image_path="{{ $image->image_path }}"
                 description="{{ $image->description }}"
                 likes="{{ $image->likes_count }}"
-                user_has_liked="{ app\Http\Controllers\LikeController::has_liked($image) }"/>
+                liked_by_user="{{ $image->liked_by_user }}"/>
             @endforeach
         </div>
         <!-- instagram post grid end-->

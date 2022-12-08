@@ -7,7 +7,7 @@
 'avatar'=>'text',
 'image_id'=>'text',
 'user_id'=>'text',
-'user_has_liked'=>'text',
+'liked_by_user'=>'text',
 ])
 
 <!-- component -->
@@ -33,7 +33,7 @@
                 <!--formulario del like-->
 
                     <button
-
+                    style="{{$liked_by_user==null ? 'display:inline-block;' : 'display:none;'}}"
                     id="like-button-{{ $image_id }}" 
                     class="like-button" 
                     data-user-id="{{ auth()->id() }}" 
@@ -46,9 +46,7 @@
                     </button>
 
                     <button 
-
-                    <?php echo "style='display:none;'"?>
-
+                    style="{{$liked_by_user!=null ? 'display:inline-block;' : 'display:none;'}}"
                     id="unlike-button-{{ $image_id }}" 
                     class="unlike-button" 
                     data-user-id="{{ auth()->id() }}"

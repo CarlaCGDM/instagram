@@ -42,17 +42,6 @@ class LikeController extends Controller
         ]);
     }
 
-    //comprobar si el usuario ha dado ya me gusta a la publicacion para saber que boton mostrar
-
-    static function has_liked(Request $request) {
-        $like = Like::where('user_id', $request->user_id)->where('image_id', $request->image_id)->first();
-        if ($like === null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     /**
      * Display the specified resource.
      *
