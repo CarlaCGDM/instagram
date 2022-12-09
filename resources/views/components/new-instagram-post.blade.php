@@ -12,7 +12,7 @@
         <div style="display:flex; flex-direction:column;  align-items:center;" class="mt-4">
             <label for="description" style="width:100%; text-align:left;">Descripción:</label>
 
-            <textarea style="color:black; width: 100%" id="story" name="description" rows="5" cols="33" placeholder="Descripción de la imagen..."></textarea>
+            <textarea style="color:black; width: 100%" id="story" name="description" rows="5" cols="33" placeholder="Descripción de la imagen..." required></textarea>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
         </div>
 

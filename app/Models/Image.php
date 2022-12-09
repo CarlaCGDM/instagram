@@ -70,6 +70,17 @@ class Image extends Model
     public function getExcerptAttribute(): string {
         return Str::excerpt($this->content);
     }
-        
+
+    //-------------------------------------------------------------------------------------------------------------IMAGENES ALEATORIAS
+    
+    public static function getRandom($folder) {
+        //imagen aleatoria
+        $dir_path = public_path($folder);
+        $files = scandir($dir_path);
+        $count = count($files);
+        $index = rand(2, ($count-1));
+        $filename = $files[$index];
+        return $folder."/".$filename;
+    }
 }
 

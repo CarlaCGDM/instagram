@@ -118,8 +118,13 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy($image_id)
     {
-        //
+        //comprobar que sea el usuario autenticado, si no lo es, redirigir al login
+        $image = Image::where('id', $image_id)->first();
+        $image->delete();
+
+        //no devolver a home sino a la pagina de donde vienes, para poder borrar desde tu perfil tambien
+        return redirect()->back();
     }
 }

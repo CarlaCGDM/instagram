@@ -13,12 +13,20 @@ class UserController extends Controller
     *
     * @return Renderable
     */
-    public function index(Request $request = null): Renderable
+    public function index(Request $request): Renderable
     {
-        $users= User::latest()->paginate();
+    
+        //si la busqueda no es null, filtramos
+        if ($request == null) {
+            $users= User::latest()->paginate();
+        } else {
+            $users = User::where('nick', 'LIKE', '%'.$request->filter.'%')->orWhere('name', 'LIKE', '%'.$request->filter.'%')->orWhere('surname', 'LIKE', '%'.$request->filter.'%')->latest()->paginate();
+        }
+        
         //tengo que ponerle un limite por pagina
         return view("users.all-users", compact("users"));
     }
+
 
     /**
      * Show the form for creating a new resource.

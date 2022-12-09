@@ -1,9 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <h1 style="font-size:100px;">Fakestagram</h1>
         </x-slot>
 
         <!-- Session Status -->
@@ -52,4 +50,5 @@
             </div>
         </form>
     </x-auth-card>
+    <p>No tienes cuenta? <a href="/register">¡Regístrate!</a></p>
 </x-guest-layout>

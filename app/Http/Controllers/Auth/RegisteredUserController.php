@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Image;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -49,12 +50,7 @@ class RegisteredUserController extends Controller
         } else {
             
             //imagen aleatoria
-            $dir_path = public_path('sample_avatars');
-            $files = scandir($dir_path);
-            $count = count($files);
-            $index = rand(2, ($count-1));
-            $filename = $files[$index];
-            $path = "sample_avatars/".$filename;
+            $path = Image::getRandom('sample_avatars');
 
             //imagen del hidden input
         }
