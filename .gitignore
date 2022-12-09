@@ -3,6 +3,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/app/user_images
+/storage/app/avatars
 /vendor
 .env
 .env.backup

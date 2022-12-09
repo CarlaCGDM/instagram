@@ -3,18 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listado de todas las imagenes que un usuario ha marcado como favoritas.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $images = Image::whereHas('likes', function($likes) {
+            $likes->where('user_id',Auth()->id());
+        })
+        ->withCount("likes")
+        ->addSelect(['liked_by_user' => Like::select('id')->where('user_id', auth()->id())->whereColumn('image_id', 'images.id')])
+        ->latest()
+        ->paginate();
+
+        // dd($images);
+
+        return view("likes.faved", compact("images"));
     }
 
     /**
