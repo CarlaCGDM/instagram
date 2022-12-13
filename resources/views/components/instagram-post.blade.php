@@ -2,12 +2,13 @@
 'nick'=>'text',
 'created_at'=>'text',
 'image_path'=>'text',
-'likes'=>'0',
+'likes'=>'text',
+'comments' => 'text',
 'description'=>'text',
 'avatar'=>'text',
 'image_id'=>'text',
 'user_id'=>'text',
-'liked_by_user'=>'text',
+'liked_by_user'=>'text'
 ])
 
 <!-- component -->
@@ -70,16 +71,22 @@
 
                 <!--formulario del like end-->
                 <!--formulario del comentario-->
+                <form method="GET" action="{{ route('image-detail')}}">
+                <input type=hidden name="image_id" value="{{ $image_id }}">
+                <button type="submit">
                 <svg fill="#262626" height="24" viewBox="0 0 48 48" width="24">
                     <path clip-rule="evenodd"
                         d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z"
                         fill-rule="evenodd"></path>
                 </svg>
+                <button>
+                </form>
                 <!--formulario del comentario end-->
             </div>
             <!--recuento de likes-->
-            <div class="flex">
-                <div id="like-count-{{ $image_id }}" class="font-semibold text-xs mt-2 mb-2">{{ $likes }} likes</div>
+            <div class="flex" style="flex-direction: row; gap: 10px;">
+                <p id="like-count-{{ $image_id }}" class="font-semibold text-xs mt-2 mb-2">{{ $likes }} likes</p>
+                <p class="font-semibold text-xs mt-2 mb-2">{{ $comments }} comments</p>
             </div>
             <!--recuento de likes end-->
         </div>

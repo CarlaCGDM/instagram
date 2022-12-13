@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use App\Models\User;
 use App\Models\Like;
+use App\Models\Comment;
 use App\Http\Controllers\LikeController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
@@ -20,7 +21,7 @@ class ImageController extends Controller
     */
     public function index(Request $request = null): Renderable
     {
-        $images = Image::with("user")->withCount("likes")->addSelect(['liked_by_user' => Like::select('id')
+        $images = Image::with("user")->withCount("likes", "comments")->withCount("comments")->addSelect(['liked_by_user' => Like::select('id')
         ->where('user_id', auth()->id())
         ->whereColumn('image_id', 'images.id')])->latest()->paginate();
 
@@ -38,15 +39,24 @@ class ImageController extends Controller
     */
     public function user_index(Request $request): Renderable
     {
-        $images = Image::with("user")->withCount("likes")->where("user_id", $request->user_id)->addSelect(['liked_by_user' => Like::select('id')
+        $images = Image::with("user")->withCount("likes", "comments")->where("user_id", $request->user_id)->addSelect(['liked_by_user' => Like::select('id')
         ->where('user_id', auth()->id())
         ->whereColumn('image_id', 'images.id')])->latest()->paginate();
         $user = User::where("id", $request->user_id)->first();
         return view("images.user-index", compact("user","images"));
     }
 
-    public function expanded_instagram_post($image_id) {
+    public function image_detail(Request $request): Renderable
+    {
+        $image = Image::where("id", $request->image_id)->with("user")->withCount("likes", "comments")->addSelect(['liked_by_user' => Like::select('id')
+        ->where('user_id', auth()->id())
+        ->whereColumn('image_id', 'images.id')])->first();
 
+        $comments = Comment::with("user")->where("image_id", $request->image_id)->latest()->paginate();
+
+        // dd($image);
+
+        return view("images.image-detail", compact("image","comments"));
     }
 
     /**
@@ -79,14 +89,14 @@ class ImageController extends Controller
     }
 
     /**
-     * Muestra un post del 
+     * 
      *
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
     public function show(Image $image)
     {
-        //
+        
     }
 
     /**
