@@ -29,17 +29,39 @@
             </form>
             <!--boton de borrar solo se muestra si el usuario autenticado es el autor de la publicacion-->
             @if(Auth::user()->id == $user_id)
-            <form method="post" action="{{ route('images.destroy', $image_id) }}">
-                @method('DELETE')
-                @csrf
-                <button style="padding:4px;display: inline-flex; align-items: top;">
+            <button type="button" style="padding:4px;display: inline-flex; align-items: top;" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-image-deletion')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#adadad" viewBox="0 0 16 16">
                         <path
                             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                     </svg>
-                </button>
-            </form>
+            </button>
+            <x-modal name="confirm-image-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+            <form method="post" action="{{ route('images.destroy', $image_id) }}" class="p-6">
+            @csrf
+            @method('delete')
+
+            <h2 class="text-lg font-medium text-gray-900">Seguro que quieres borrar esta imagen?</h2>
+
+            <p class="mt-1 text-sm text-gray-600">
+                {{ __('Todos los datos asociados se perderán para siempre.') }}
+            </p>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancelar') }}
+                </x-secondary-button>
+
+                <x-danger-button class="ml-3">
+                    {{ __('Borrar Imagen') }}
+                </x-danger-button>
+            </div>
+        </form>
+    </x-modal>
+
+
+            
             @endif
+
         </div>
         <!--formulario del header end-->
         <img style="aspect-ratio: 1/1" src="{{ $image_path }}" class="object-cover" />
