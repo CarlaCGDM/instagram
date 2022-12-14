@@ -85,9 +85,12 @@ class CommentController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $comment_id)
     {
-        //
+        $comment = Comment::find($comment_id);
+        $comment->content = $request->content;
+        $comment->save();
+        return redirect()->back()->with('status', 'comment-updated');
     }
 
     /**

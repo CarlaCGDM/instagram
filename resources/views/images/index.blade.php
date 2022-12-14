@@ -1,5 +1,8 @@
 <x-app-layout>
-
+    @if (session('status') === 'image-deleted' )
+        <x-success-alert 
+        mensaje="Imagen borrada con éxito."/>
+    @endif
     <!-- create new post overlay -->
     <div id="new-post-form" style="visibility:hidden; position:fixed; top:50%; left: 50%; transform:translate(-50%, -50%); z-index: 100;">
         <x-new-instagram-post />

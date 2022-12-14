@@ -36,6 +36,21 @@
                 </button>
             </form>
             @endif
+            <!--boton de editar solo si el usuario autenticado es el autor del comentario-->
+            @if(Auth::user()->id == $user_id or Auth::user()->id == $image_id)
+            <form method="post" action="{{ route('comments.update', $comment_id) }}">
+                @method('PUT')
+                @csrf
+                <div class="mt-4">
+                <textarea style="color:black; width: 100%" id="story" name="content" rows="5" value="{{ $content }}" class="bg-white border rounded-sm max-w-md" required></textarea>
+                </div>
+                <button style="padding:4px;display: inline-flex; align-items: top;">
+                    Editar
+                </button>
+            </form>
+
+            @endif
+            <!--boton de editar end-->
         </div>
         <!--formulario del header end-->
 

@@ -21,9 +21,13 @@ class ImageController extends Controller
     */
     public function index(Request $request = null): Renderable
     {
-        $images = Image::with("user")->withCount("likes", "comments")->withCount("comments")->addSelect(['liked_by_user' => Like::select('id')
+        $images = Image::with("user")
+        ->withCount("likes", "comments")
+        ->addSelect(['liked_by_user' => Like::select('id')
         ->where('user_id', auth()->id())
-        ->whereColumn('image_id', 'images.id')])->latest()->paginate();
+        ->whereColumn('image_id', 'images.id')])
+        ->latest()
+        ->paginate();
 
         //dd($images);
 
@@ -135,6 +139,6 @@ class ImageController extends Controller
         $image->delete();
 
         //no devolver a home sino a la pagina de donde vienes, para poder borrar desde tu perfil tambien
-        return redirect()->back();
+        return redirect()->back()->with('status', 'image-deleted');
     }
 }
