@@ -4,7 +4,8 @@
 'created_at'=>'text',
 'content'=>'text',
 'user_id'=>'text',
-'comment_id'=>'text'
+'comment_id'=>'text',
+'image_id'=>'text'
 ])
 
 <div class="bg-gray-100 p-4">
@@ -23,7 +24,7 @@
                 </div>
             </form>
             <!--boton de borrar solo se muestra si el usuario autenticado es el autor del comentario [FALTA: o de la imagen]-->
-            @if(Auth::user()->id == $user_id)
+            @if(Auth::user()->id == $user_id or Auth::user()->id == $image_id)
             <form method="post" action="{{ route('comments.destroy', $comment_id) }}">
                 @method('DELETE')
                 @csrf

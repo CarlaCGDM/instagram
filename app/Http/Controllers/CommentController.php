@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -47,7 +48,7 @@ class CommentController extends Controller
 
         Comment::create([
             'user_id' => $request->user_id,
-            'image_id' => $request->user_id,
+            'image_id' => $request->image_id,
             'content' => $request->content,
             'created_at' => now(),
         ]);
@@ -95,8 +96,11 @@ class CommentController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($comment_id)
     {
-        //
+        $comment = Comment::where('id', $comment_id)->first();
+        $comment->delete();
+
+        return redirect()->back();
     }
 }
