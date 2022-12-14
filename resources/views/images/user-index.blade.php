@@ -18,6 +18,7 @@
                 image_path="{{ $image->image_path }}"
                 description="{{ $image->description }}"
                 likes="{{ $image->likes_count }}"
+                comments="{{ $image->comments }}"
                 liked_by_user="{{$image->liked_by_user}}" />
             @endforeach
         </div>

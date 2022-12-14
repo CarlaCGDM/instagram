@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ImageController;
 use \App\Http\Controllers\LikeController;
 use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\CommentController;
 
 
 
@@ -39,7 +40,11 @@ Route::resource("images", ImageController::class)
 Route::resource("users", UserController::class)
 ->middleware("auth");
 
+Route::resource("comments", CommentController::class)
+->middleware("auth");
+
 Route::get('user-index', [ImageController::class, 'user_index'])->name('user-index');
+Route::get('image-detail', [ImageController::class, 'image_detail'])->name('image-detail');
 
 Route::resource("likes", LikeController::class)
 ->middleware("auth");
