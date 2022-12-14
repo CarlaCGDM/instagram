@@ -7,7 +7,7 @@
     <!--user profile header end -->
 
     <!--instagram post grid -->
-        <div class="grid grid-cols-5 gap-0.5 mt-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0.5 mt-2">
             @foreach($images as $image)
             <x-instagram-post
                 image_id="{{ $image->id }}"

@@ -8,7 +8,7 @@
 
     <!-- instagram post grid -->
     <div class="relative max-w-2x1 mx-auto my-3">
-        <div class="grid grid-cols-5 gap-0.5 mt-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0.5 mt-2">
             @foreach($images as $image)
             <x-instagram-post user_id="{{ $image->user->id }}" image_id="{{ $image->id }}"
                 avatar="{{ $image->user->avatar }}" nick="{{ $image->user->nick }}"
