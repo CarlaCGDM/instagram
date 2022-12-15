@@ -25,6 +25,8 @@
                 comments="{{ $image->comments_count }}"
                 liked_by_user="{{ $image->liked_by_user }}"/>
             @endforeach
+
+            {{ $images->links() }}
         </div>
         <!-- instagram post grid end-->
 
